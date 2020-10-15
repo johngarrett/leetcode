@@ -1,23 +1,24 @@
 fn main() {
-    println!("Hello World");
-    let x = 352;
+    let x = 123;
     let y = reverse(x);
     println!("{}", y);
 }
 
+
+
 pub fn reverse(x: i32) -> i32 {
     let mut result = String::from("");
 
-    let first = x.to_string().chars().nth(0).unwrap();
+    let pos = x > 0;
+    let start_index = if pos { 0 } else { 1 };
 
-    let mut postive = true;
-    if first == '-' {
-        let positive = false;
-    }
-
-    for c in x.to_string().chars().rev() {
+    for c in x.to_string()[start_index..].chars().rev() {
         result.push(c);
     }
 
-    result.parse().unwrap()
+    match result.parse::<i32>() {
+        Ok(v) => if pos { v } else { -v },
+        Err(_) => 0,
+    }
 }
+
