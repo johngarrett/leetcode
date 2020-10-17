@@ -1,12 +1,17 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <math.h>
 #include <limits.h>
+
+#define WHITESPACE ' '
 
 int myAtio(char* s) {
     int sign = 1;
+    int func() {
+    }
 
     // trim leading white space
-    while(s[0] == ' ')
+    while(s[0] == WHITESPACE)
     {
         s += sizeof(char);
     }
@@ -25,17 +30,13 @@ int myAtio(char* s) {
     }
 
     // ensure first char is digit
-    if (!isdigit(s[0])) 
-    {
+    if (!isdigit(s[0])) {
         return 0;
     }
 
-
     unsigned int numerical_result = 0;
-    for(unsigned short i = 0; isdigit(s[i]); ++i) 
-    {
-         if (numerical_result > INT_MAX / 10 || (numerical_result == INT_MAX / 10 && s[i] - '0' > 7)) 
-         { 
+    for(int i = 0; isdigit(s[i]); ++i) {
+         if (numerical_result > INT_MAX / 10 || (numerical_result == INT_MAX / 10 && s[i] - '0' > 7)) { 
              return sign == 1 ? INT_MAX: INT_MIN;
          } 
         numerical_result *= 10;
