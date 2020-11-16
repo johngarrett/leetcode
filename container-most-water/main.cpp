@@ -3,32 +3,23 @@
 #include <algorithm>
 
 int maxArea(std::vector<int>& height) {
-    int max_area = 0;
+    int lhs = 0, rhs = height.size() - 1, max_area = 0;
+    /*
+     * start from both ends, move together until equal
+     */
 
-    /* c++ sucks...
-      for (auto [i, lhs]: std::enumerate(height)) {
-        for (auto [j, rhs]: std::enumerate(height.after(index))) {
-            auto area = std::min(lhs, rhs) * (j - i);
+    while (lhs < rhs) { 
+        auto area = std::min(height.at(lhs), height.at(rhs)) * (rhs - lhs);
+        max_area = std::max(max_area, area);
 
-            std::cout << area << std::endl;
-            if (area > maxArea) {
-                maxArea = area;
-            }
+        // if lhs height < rhs height, move forward to try and find a higher height
+        if (height.at(lhs) < height.at(rhs)) {
+            ++lhs;
+        } else {
+            --rhs;
         }
     }
-    */
 
-    for(auto i = 0; i < height.size(); i++) {
-        auto lhs_height = height.at(i);
-        for(auto j = i; j < height.size(); j++) {
-            auto h = std::min(lhs_height, height.at(j));
-            auto area = h * (j - i);
-            std::cout << area << std::endl;
-            if (area > max_area) {
-               max_area = area;
-            }
-        }
-    }
     return max_area;
 }
 
